@@ -1,0 +1,24 @@
+version: '{build}'
+image:
+  - Visual Studio 2017
+  - Ubuntu
+skip_commits:
+  files:
+    - '*.md'
+    - '*.txt'
+skip_tags: true
+before_build:
+- dotnet --info
+build_script:
+- cmd: build.cmd
+- sh: ./build.sh
+test_script:
+- cmd: test.cmd
+- sh: ./test.sh
+notifications:
+- provider: Email
+  to:
+  - raboof-ci@googlegroups.com
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: false
